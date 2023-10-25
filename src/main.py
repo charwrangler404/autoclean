@@ -74,5 +74,3 @@ if __name__ == "__main__":
     directories = read_dir_config(configdir)
     for directory in directories:
         check_purge(directory)
-
-    

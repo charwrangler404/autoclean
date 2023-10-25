@@ -39,6 +39,7 @@ def check_purge(dir_config):
     archive1_age =  time.clock_gettime(time.CLOCK_REALTIME) - float(int(dir_config['Archive1']) * 24 * 60 * 60)
     archive2_age = time.clock_gettime(time.CLOCK_REALTIME) - float(int(dir_config['Archive2']) * 24 * 60 * 60 )
     archive3_age = time.clock_gettime(time.CLOCK_REALTIME) - float(int(dir_config['Archive3']) * 24 * 60 * 60 )
+    maxage = time.clock_gettime(time.CLOCK_REALTIME) - float(int(dir_config['MaxAge']) * 24 * 60 * 60)
     p = PosixPath(dir)
     files_archive_1 = 0
     files_archive_2 = 0
@@ -49,7 +50,7 @@ def check_purge(dir_config):
             stat = os.stat(x)
             if stat.st_atime > archive1_age:
                 # Rotate file to Archive1_New folder
-                move_file(x, f"{dir}/Archive1_Recen/{x.name}")
+                move_file(x, f"{dir}/Archive1_Recent/{x.name}")
                 files_archive_1 += 1
             elif stat.st_atime > archive2_age:
                 # Rotate file to Archive2_Recent folder
